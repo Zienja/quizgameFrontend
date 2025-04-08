@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    <mainNavigation />
-    <QuizGame  />
+    <mainNavigation @user="(user) => this.user = user" @openRankList="this.openWindow = 1" />
+    <QuizGame :user="this.user" v-if="this.openWindow == 0"/>
+    <RankList v-if="this.openWindow == 1" />
+    <notifications />
   </div>
 </template>
 
 <script>
 import mainNavigation from './components/mainNavigation.vue';
-import QuizGame from './pages/game.vue'
+import QuizGame from './pages/game.vue';
+import RankList from './pages/rankList.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      user: {},
+      openWindow: 0
+    }
+  },
   components: {
     mainNavigation,
-    QuizGame
+    QuizGame,
+    RankList
   }
 }
 </script>
